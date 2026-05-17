@@ -84,7 +84,7 @@ const getHistory = async ({ page = 1, limit = 10 } = {}) => {
 
   return {
     data: checks.map(formatCheck),
-    meta: {
+    pagination: {
       total,
       page,
       limit,

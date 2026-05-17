@@ -25,16 +25,39 @@ router.use(authenticate);
  *         application/json:
  *           schema:
  *             type: object
- *             required: [text]
+ *             required:
+ *               - text
  *             properties:
  *               text:
  *                 type: string
- *                 example: Ini adalah teks berita yang ingin dicek
+ *                 minLength: 10
+ *                 example: Ini adalah teks berita yang ingin dicek untuk verifikasi kredibilitas
  *     responses:
  *       201:
  *         description: Prediksi berhasil
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Check completed successfully
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                     prediction:
+ *                       type: string
+ *                       example: legitimate
  *       401:
  *         description: Unauthorized
+ *       400:
+ *         description: Validasi input gagal
  *       503:
  *         description: AI Engine tidak dapat dijangkau
  */

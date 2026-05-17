@@ -20,22 +20,49 @@ const router = Router();
  *         application/json:
  *           schema:
  *             type: object
- *             required: [name, email, password]
+ *             required:
+ *               - name
+ *               - email
+ *               - password
  *             properties:
  *               name:
  *                 type: string
+ *                 minLength: 2
+ *                 maxLength: 100
  *                 example: Budi Santoso
  *               email:
  *                 type: string
+ *                 format: email
  *                 example: budi@example.com
  *               password:
  *                 type: string
+ *                 minLength: 8
  *                 example: Password123
  *     responses:
  *       201:
  *         description: Registrasi berhasil
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Registration successful
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                     email:
+ *                       type: string
  *       409:
  *         description: Email sudah terdaftar
+ *       400:
+ *         description: Validasi input gagal
  */
 router.post(
   '/register',
@@ -72,19 +99,42 @@ router.post(
  *         application/json:
  *           schema:
  *             type: object
- *             required: [email, password]
+ *             required:
+ *               - email
+ *               - password
  *             properties:
  *               email:
  *                 type: string
+ *                 format: email
  *                 example: budi@example.com
  *               password:
  *                 type: string
+ *                 minLength: 8
  *                 example: Password123
  *     responses:
  *       200:
  *         description: Login berhasil, token dikembalikan
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Login successful
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     token:
+ *                       type: string
+ *                       example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
  *       401:
  *         description: Email atau password salah
+ *       400:
+ *         description: Validasi input gagal
  */
 router.post(
   '/login',
