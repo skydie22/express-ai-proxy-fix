@@ -4,7 +4,7 @@ import * as checkService from '../services/check.service.js';
 const runCheck = async (req, res, next) => {
   try {
     const { text } = req.body;
-    const userId = req.user.id;
+    const userId = req.user?.id || null ;
 
     const result = await checkService.runCheck({ userId, text });
 

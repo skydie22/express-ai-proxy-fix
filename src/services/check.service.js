@@ -15,7 +15,7 @@ const hashContent = (text) => {
  * - If same content was checked before, reuse the cached result
  * - Save to UserHistory regardless
  */
-const runCheck = async ({ userId, text }) => {
+const runCheck = async ({ userId = null, text }) => {
   const contentHash = hashContent(text);
 
   // 1. Check for existing result (cache by content hash)
